@@ -21,6 +21,10 @@ spec:
           image: sissbruecker/linkding:1.31.0
           ports:
             - containerPort: 9090
+          # add environment variables from the secret (secret is created in the linkding-container-env-secret.yaml file)
+          envFrom:
+            - secretRef:
+                name: linkding-container-env
 
           securityContext:
             allowPrivilegeEscalation: false

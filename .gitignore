@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SOPS / age private keys — never commit
+*.agekey
+age.txt
+keys.txt
