@@ -26,6 +26,20 @@ We can set privilege permission on linkding container by specify userid in the m
 ```bash
     kubectl logs -n linkding-{hash-number} | grep set 
 ```
+*How flux find work under the hood in this project
+flux-system Kustomization (path: clusters/staging)
+  └─ applies clusters/staging/apps.yaml
+       └─ creates "apps" Kustomization (path: apps/staging)
+            └─ kustomize build renders apps/staging/linkding/
+                 └─ pulls in apps/base/linkding via `resources:`
+
+## CRDs (Custom Resource Definition):
+This is how kubernetes lets us extend its APIs whit our own kinds. (beyond Pod and Deployment).
+E.g. in repository.yaml of 'monitoring/controllers/base' Flux creates 'helmrepositories.source.toolkit.fluxcd.io'
+
+The repository.yaml file itself is one I wrote by hand. it's
+an instance of that kind (a "custom resource"). Flux's source-controller is the
+piece that actually watches for HelmRepository objects and does something with them. 
 
 ## Problem: cloudflared pods stuck as `Unknown` in k9s (SOPS + Flux)
 
