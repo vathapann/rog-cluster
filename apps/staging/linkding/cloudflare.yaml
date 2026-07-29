@@ -80,6 +80,11 @@ data:
     - hostname: homelab.sovathapann.site
       service: http://linkding:9090
 
+    # Grafana lives in the "monitoring" namespace, so it needs the full
+    # in-cluster DNS name rather than just the service name.
+    - hostname: grafana.sovathapann.site
+      service: http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local:80
+
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
     # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is
     # in the connection from cloudflared to your local service, not from the internet to cloudflared.
